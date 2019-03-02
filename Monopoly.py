@@ -1,11 +1,15 @@
-import Property.py
-import Chance.py
-import communitychest.py
-import Jail.py
+import Property
+import Chance
+import communitychest
+import Jail
+
 
 class Monopoly:
     def __init__(self, players):
         self.players = players
+        self.__create_properties()
+        self.__create_chance()
+        self.__create_communitychest()
 
     def __create_properties(self):
         self.properties = []
@@ -37,12 +41,10 @@ class Monopoly:
         self.properties.append(Property.Property("Ray Railways", 200, "black", 50, 0, 25))
         self.properties.append(Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 15))
         self.properties.append(Property.Property("Gavel's Gravel", 200, "black", 50, 0, 5))
+
     def __create_chance(self,location):
         self.chance = []
-        self.location = 7
-        self.location = 22
-        self.location = 36
-        self.chance.append(Chance.Chance(0,50,"Win a beauty contest. Collect $50"))
+        self.chance.append(Chance.Chance(0, 50, "Win a beauty contest. Collect $50"))
         self.chance.append(Chance.Chance(-2, 0, "Slip and fall. Go back 2 spaces"))
         self.chance.append(Chance.Chance(0,-20,"Get a speeding ticket. Pay $20"))
         self.chance.append(Chance.Chance(0,-10,"Lose a bet with the bank. Pay $10"))
@@ -57,8 +59,6 @@ class Monopoly:
     def __create_communitychest(self):
         self.communitychest = []
         self.communitchest.append(communitychest())
-    def __Jail(self,location):
-        self.location = 10
 
     def get_properties(self):
         return self.properties
@@ -70,6 +70,6 @@ class Monopoly:
                 not_bankrupt += 1
         if not_bankrupt <= 1:
             return False
-        return True
+
 
 
