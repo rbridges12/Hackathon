@@ -58,7 +58,9 @@ class Monopoly:
         self.chance.append(Chance.Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15"))
     def __create_communitychest(self):
         self.communitychest = []
-        self.communitchest.append(communitychest())
+        self.communitchest.append(communitychest(0,-40,"Pay the Doc $40"))
+        self.communitchest.append(communitychest(0, 100, "Get $100 in Christmas Gifts"))
+        self.communitchest.append(communitychest(3,0, "Wake up early, go 3 spaces"))
 
     def get_properties(self):
         return self.properties
