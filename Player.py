@@ -12,6 +12,8 @@ class Player:
         self.position += amount
         if self.position >= 40:
             self.position = 1
+            print(self.name, " passed go, earned $200")
+            self.add_money(200)
 
     def move_backward(self, amount):
         self.position -= amount

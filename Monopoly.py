@@ -74,9 +74,10 @@ class Monopoly:
             if player.get_money() >= 0:
                 not_bankrupt += 1
         if not_bankrupt <= 1:
-            return False
+            return True
 
     def landed_on_property(self, player, a_property):
+        print(player.get_name(), " landed on ", a_property.get_name())
         if a_property.get_owner() == 0:
             if player.get_money() >= a_property.get_price():
                 if input("Do you want to buy " + a_property.get_name() + "? (y/n)") == "y":
@@ -91,8 +92,10 @@ class Monopoly:
             owner.add_money(a_property.get_rent())
             print(player.get_name() + " paid " + owner.get_name())
 
-    def landed_on_chance(self):
-        print("landed on chance")
+    def landed_on_chance(self, player, chance):
+        print(player.get_name(), "landed on chance: ", chance.get_name())
+        player.move_forward(chance.get_spaces())
+        player.add_money(chance.get_price())
 
     #def landed_on_communitychest(self):
 
@@ -109,7 +112,8 @@ class Monopoly:
         chance_locations = [7, 22, 36]
         for i in chance_locations:
             if player_location == i:
-                return self.chance[random.randint(0, len(self.chance))]
+                return self.chance[random.randint(0, len(self.chance)-1)]
+        return 0
 
     def get_on_communitychest(self, player_location):
         for c in self.communitychest:
@@ -122,14 +126,14 @@ class Monopoly:
         for player in self.players:
             roll = self.__get_dice_roll()
             player.move_forward(roll)
+            print(player.get_name(), " has $", player.get_money())
             print(player.get_name(), " rolled a ", roll)
-            #print(player.get_position())
             landed_property = self.get_on_property(player.get_position())
             landed_chance = self.get_on_chance(player.get_position())
             if landed_property != 0:
                 self.landed_on_property(player, landed_property)
             elif landed_chance != 0:
-                self.landed_on_chance()
+                self.landed_on_chance(player, landed_chance)
 
 
 
