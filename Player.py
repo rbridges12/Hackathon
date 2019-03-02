@@ -12,12 +12,20 @@ class Player:
     def move_backward(self, amount):
         self.position -= amount
 
-    def addMoney(self,amount):
+    def add_money(self,amount):
         self.money += amount
 
-    def subtractMoney(self,amount):
+    def subtract_money(self,amount):
         self.money -= amount
 
-    def getProperties(self, number):
-        self.properties = number
+    def get_properties(self):
         return self.properties
+
+    def get_position(self):
+        return self.position
+
+    def get_money(self):
+        return self.money
+
+    def get_name(self):
+        return self.name

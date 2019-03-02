@@ -71,5 +71,12 @@ class Monopoly:
         if not_bankrupt <= 1:
             return False
 
+    def landed_on_property(self):
+
+    def landed_on_chance(self):
+
+    def landed_on_communitychest(self):
+
+
 
 
