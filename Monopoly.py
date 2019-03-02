@@ -7,7 +7,6 @@ class Monopoly:
 
     def __create_properties(self):
         self.properties = []
-<<<<<<< HEAD
         self.properties.append(Property.Property("Iowa City Lane", 500, "blue", 30, 0, 0))
         self.properties.append(Property.Property("North Liberty Road", 450, "blue", 30, 0, 0))
         self.properties.append(Property.Property("Coralville Court", 400, "green", 25, 0, 0))
@@ -36,8 +35,6 @@ class Monopoly:
         self.properties.append(Property.Property("Ray Railways", 200, "black", 50, 0, 0))
         self.properties.append(Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 0))
         self.properties.append(Property.Property("Gavel's Gravel", 200, "black", 50, 0, 0))
-=======
-        self.properties.append(Property.Property("Test Property", 500, "blue", 15, 0, 0))
     def __create_chance(self):
         self.chance = []
         self.chance.append(Chance.Chance(0,50,"Win a beauty contest. Collect $50"))
@@ -52,4 +49,3 @@ class Monopoly:
         self.chance.append(Chance.Chance(1,0,"Get a new, faster car. Go forward 1 space"))
         self.chance.append(Chance.Chance(-2,0,"Wake up late. Go back 2 spaces"))
         self.chance.append(Chance.Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15"))
->>>>>>> 7040f0d4454efd08fcef38dae39589f0dd1806b5
