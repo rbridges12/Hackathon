@@ -1,20 +1,16 @@
 import Monopoly
 import Player
-import random
 
-player1 = Player("person1", 1000, 0, [])
-player2 = Player("person2", 1000, 0, [])
+player1 = Player.Player("person1")
+player2 = Player.Player("person2")
 players = [player1, player2]
 
-monopoly = Monopoly(players)
+monopoly = Monopoly.Monopoly(players)
 turn = 0
 
-while not monopoly.getGameOver():
+while not monopoly.get_game_over():
     monopoly.do_turn()
+    turn += 1
 
 
-        
-
-def get_dice_roll():
-    return random.randint(1, 7)
 

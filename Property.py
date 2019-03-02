@@ -1,11 +1,10 @@
 class Property:
-    def __init__(self, myname, myprice, mycolor, myrent, myhouses, myhotel, mylocation):
+    def __init__(self, myname, myprice, mycolor, myrent, myhouses, mylocation):
         self.name = myname
         self.price = myprice
         self.color = mycolor
         self.rent = myrent
         self.houses = myhouses
-        self.hotel = myhotel
         self.owner = 0
         self.location = mylocation
 

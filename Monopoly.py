@@ -42,7 +42,7 @@ class Monopoly:
         self.properties.append(Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 15))
         self.properties.append(Property.Property("Gavel's Gravel", 200, "black", 50, 0, 5))
 
-    def __create_chance(self,location):
+    def __create_chance(self):
         self.chance = []
         self.chance.append(Chance.Chance(0, 50, "Win a beauty contest. Collect $50"))
         self.chance.append(Chance.Chance(-2, 0, "Slip and fall. Go back 2 spaces"))
@@ -58,9 +58,9 @@ class Monopoly:
         self.chance.append(Chance.Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15"))
     def __create_communitychest(self):
         self.communitychest = []
-        self.communitchest.append(communitychest(0,-40,"Pay the Doc $40"))
-        self.communitchest.append(communitychest(0, 100, "Get $100 in Christmas Gifts"))
-        self.communitchest.append(communitychest(3,0, "Wake up early, go 3 spaces"))
+        self.communitychest.append(communitychest.CommunityChest(0,-40,"Pay the Doc $40"))
+        self.communitychest.append(communitychest.CommunityChest(0, 100, "Get $100 in Christmas Gifts"))
+        self.communitychest.append(communitychest.CommunityChest(3,0, "Wake up early, go 3 spaces"))
 
     def get_properties(self):
         return self.properties
@@ -71,7 +71,7 @@ class Monopoly:
     def get_game_over(self):
         not_bankrupt = 0
         for player in self.players:
-            if player.getMoney() >= 0:
+            if player.get_money() >= 0:
                 not_bankrupt += 1
         if not_bankrupt <= 1:
             return False
@@ -94,23 +94,22 @@ class Monopoly:
     def landed_on_chance(self):
         print("landed on chance")
 
-    def landed_on_communitychest(self):
+    #def landed_on_communitychest(self):
 
     def __get_dice_roll(self):
-        return random.randint(1, 7)
+        return random.randint(1, 6)
 
     def get_on_property(self, player_location):
-        for property in self.properties:
-            if property.get_location() == player_location:
-                return property
-            else:
-                return 0
+        for a_property in self.properties:
+            if a_property.get_location() == player_location:
+                return a_property
+        return 0
+
     def get_on_chance(self, player_location):
-        for c in self.chance:
-            if c.get_location == player_location:
-                return c
-            else:
-                return 0
+        chance_locations = [7, 22, 36]
+        for i in chance_locations:
+            if player_location == i:
+                return self.chance[random.randint(0, len(self.chance))]
 
     def get_on_communitychest(self, player_location):
         for c in self.communitychest:
@@ -123,9 +122,10 @@ class Monopoly:
         for player in self.players:
             roll = self.__get_dice_roll()
             player.move_forward(roll)
-            print(player.get_name() + " rolled a " + roll)
-            landed_property = self.get_on_property()
-            landed_chance = self.get_on_chance()
+            print(player.get_name(), " rolled a ", roll)
+            #print(player.get_position())
+            landed_property = self.get_on_property(player.get_position())
+            landed_chance = self.get_on_chance(player.get_position())
             if landed_property != 0:
                 self.landed_on_property(player, landed_property)
             elif landed_chance != 0:
