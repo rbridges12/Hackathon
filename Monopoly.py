@@ -1,4 +1,6 @@
 import Property.py
+import Chance.py
+import communitychest.py
 
 
 class Monopoly:
@@ -12,7 +14,7 @@ class Monopoly:
         self.properties.append(Property.Property("Coralville Court", 400, "green", 25, 0, 0))
         self.properties.append(Property.Property("Cedar Rapids Boulevard", 380, "green", 25, 0, 0))
         self.properties.append(Property.Property("Bettendorf Drive", 360, "green", 25, 0, 0))
-        self.properties.append(Property.Property("Meskwaki Circle", 320, "yellow", 20, 0, 0))
+        self.properties.append(Property.Property("Misquaki Circle", 320, "yellow", 20, 0, 0))
         self.properties.append(Property.Property("Decorah Highway 6", 300, "yellow", 20, 0, 0))
         self.properties.append(Property.Property("Des Moines Avenue", 280, "yellow", 20, 0, 0))
         self.properties.append(Property.Property("Waterloo Street", 275, "red", 15, 0, 0))
@@ -49,3 +51,7 @@ class Monopoly:
         self.chance.append(Chance.Chance(1,0,"Get a new, faster car. Go forward 1 space"))
         self.chance.append(Chance.Chance(-2,0,"Wake up late. Go back 2 spaces"))
         self.chance.append(Chance.Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15"))
+    def __create_communitychest(self):
+        self.communitychest = []
+        self.communitchest.append(communitychest())
+
