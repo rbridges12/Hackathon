@@ -1,5 +1,5 @@
 class Property:
-    def __init__(self, myname, myprice, mycolor, myrent, myhouses, myhotel):
+    def __init__(self, myname, myprice, mycolor, myrent, myhouses, myhotel, mylocation):
         self.name = myname
         self.price = myprice
         self.color = mycolor
@@ -7,6 +7,7 @@ class Property:
         self.houses = myhouses
         self.hotel = myhotel
         self.owner
+        self.location = mylocation
 
     def bought(self, player):
         self.owner = player
