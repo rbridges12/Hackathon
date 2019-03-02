@@ -1,5 +1,5 @@
-import Monopoly.py
-import Player.py
+import Monopoly
+import Player
 import random
 
 player1 = Player("person1", 1000, 0, [])
@@ -10,17 +10,11 @@ monopoly = Monopoly(players)
 turn = 0
 
 while not monopoly.getGameOver():
+    monopoly.do_turn()
 
 
-def do_turn():
-    for player in monopoly.getPlayers():
-        player.move_forward(get_dice_roll())
-        player_position = player.get_position()
         
 
 def get_dice_roll():
-    return random.randint(1,7)
+    return random.randint(1, 7)
 
-def landed_on_property():
-
-def landed_on_chance():

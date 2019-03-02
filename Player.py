@@ -1,3 +1,5 @@
+import Property
+
 class Player:
 
     def __init__(self, name):
@@ -29,3 +31,5 @@ class Player:
 
     def get_name(self):
         return self.name
+
+

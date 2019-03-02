@@ -1,7 +1,7 @@
 import Property
 import Chance
 import communitychest
-import Jail
+import random
 
 
 class Monopoly:
@@ -65,6 +65,9 @@ class Monopoly:
     def get_properties(self):
         return self.properties
 
+    def get_players(self):
+        return self.players
+
     def get_game_over(self):
         not_bankrupt = 0
         for player in self.players:
@@ -73,11 +76,63 @@ class Monopoly:
         if not_bankrupt <= 1:
             return False
 
-    def landed_on_property(self):
+    def landed_on_property(self, player, a_property):
+        if a_property.get_owner() == 0:
+            if player.get_money() >= a_property.get_price():
+                if input("Do you want to buy " + a_property.get_name() + "? (y/n)") == "y":
+                    a_property.set_owner(player)
+                    player.subtract_money(a_property.get_price())
+                    print(player.get_name() + " bought " + a_property.get_name())
+            else:
+                print(player.get_name() + " can't buy " + a_property.get_name())
+        else:
+            owner = a_property.get_owner()
+            player.subtract_money(a_property.get_rent())
+            owner.add_money(a_property.get_rent())
+            print(player.get_name() + " paid " + owner.get_name())
 
     def landed_on_chance(self):
+        print("landed on chance")
 
     def landed_on_communitychest(self):
+
+    def __get_dice_roll(self):
+        return random.randint(1, 7)
+
+    def get_on_property(self, player_location):
+        for property in self.properties:
+            if property.get_location() == player_location:
+                return property
+            else:
+                return 0
+    def get_on_chance(self, player_location):
+        for c in self.chance:
+            if c.get_location == player_location:
+                return c
+            else:
+                return 0
+
+    def get_on_communitychest(self, player_location):
+        for c in self.communitychest:
+            if c.get_location == player_location:
+                return c
+            else:
+                return 0
+
+    def do_turn(self):
+        for player in self.players:
+            roll = self.__get_dice_roll()
+            player.move_forward(roll)
+            print(player.get_name() + " rolled a " + roll)
+            landed_property = self.get_on_property()
+            landed_chance = self.get_on_chance()
+            if landed_property != 0:
+                self.landed_on_property(player, landed_property)
+            elif landed_chance != 0:
+                self.landed_on_chance()
+
+
+
 
 
 
