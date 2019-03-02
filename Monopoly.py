@@ -60,3 +60,16 @@ class Monopoly:
     def __Jail(self,location):
         self.location = 10
 
+    def get_properties(self):
+        return self.properties
+
+    def get_game_over(self):
+        not_bankrupt = 0
+        for player in self.players:
+            if player.getMoney() >= 0:
+                not_bankrupt += 1
+        if not_bankrupt <= 1:
+            return False
+        return True
+
+
