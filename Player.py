@@ -1,7 +1,7 @@
 
 class Player:
 
-    def __init__(self, name, initial_money=1500, initial_position=1, initial_properties=[], num_of_squares=40):
+    def __init__(self, name, initial_money=1500, initial_position=0, initial_properties=[], num_of_squares=40):
         self.name = name
         self.money = initial_money
         self.position = initial_position

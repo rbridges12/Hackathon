@@ -41,7 +41,7 @@ class Property:
     def get_color(self):
         return self.__color
 
-    def get_positon(self):
+    def get_position(self):
         return self.__position
 
     def get_houses(self):
