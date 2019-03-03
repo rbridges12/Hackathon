@@ -3,6 +3,7 @@ import Chance
 import communitychest
 import random
 
+
 class Monopoly:
     def __init__(self, players):
         self.__players = players
@@ -99,7 +100,7 @@ class Monopoly:
     def get_game_over(self):
         not_bankrupt = 0
         for player in self.__players:
-            if player.get_money() >= 0:
+            if not player.get_is_bankrupt():
                 not_bankrupt += 1
         if not_bankrupt <= 1:
             return True
@@ -108,7 +109,7 @@ class Monopoly:
         print(player.get_name(), " landed on ", a_property.get_name())
         if a_property.get_owner() is None:
             if player.get_money() >= a_property.get_price():
-                if input("Do you want to buy " + a_property.get_name() + "? (y/n)") == "y":
+                #if input("Do you want to buy " + a_property.get_name() + "? (y/n)") == "y":
                     a_property.set_owner(player)
                     player.subtract_money(a_property.get_price())
                     print(player.get_name() + " bought " + a_property.get_name())
@@ -118,6 +119,7 @@ class Monopoly:
             owner = a_property.get_owner()
             player.subtract_money(a_property.get_rent())
             owner.add_money(a_property.get_rent())
+            print(a_property.get_name(), "is owned by", owner.get_name())
             print(player.get_name(), "paid", owner.get_name(), " $", a_property.get_rent(), "in rent")
 
     def landed_on_chance(self, player, chance):
@@ -152,6 +154,8 @@ class Monopoly:
 
     def do_turn(self):
         for player in self.__players:
+            if player.get_is_bankrupt():
+                continue
             roll = self.__get_dice_roll()
             player.move_forward(roll)
             print(player.get_name(), " has $", player.get_money())
@@ -159,14 +163,15 @@ class Monopoly:
             print(player.get_name(), "moved to tile ", player.get_position())
             landed_property = self.get_on_property(player.get_position())
             landed_chance = self.get_on_chance(player.get_position())
-            if not landed_property is None:
+            if landed_property is not None:
                 self.landed_on_property(player, landed_property)
-            elif not landed_chance is None:
+            elif landed_chance is not None:
                 self.landed_on_chance(player, landed_chance)
             if player.get_money() <= 0 or player.get_money() > 10000:
                 player.set_is_bankrupt(True)
                 print(player.get_name(), "is bankrupt")
-                self.__players.remove(player)
+
+                # self.__players.remove(player)
 
 
 
