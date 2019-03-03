@@ -1,40 +1,54 @@
 class Property:
-    def __init__(self, myname, myprice, mycolor, myrent, myhouses, mylocation):
-        self.name = myname
-        self.price = myprice
-        self.color = mycolor
-        self.rent = myrent
-        self.houses = myhouses
-        self.owner = 0
-        self.location = mylocation
+    def __init__(self, name, price, rent, color, position, houses=0, owner=None):
+        self.__name = name
+        self.__price = price
+        self.__rent = rent
+        self.__color = color
+        self.__position = position
+        self.__houses = houses
+        self.__owner = owner
 
-    def buy(self, player):
-        self.owner = player
+    def set_name(self, name):
+        self.__name = name
 
-    def buy_house(self, numhouse):
-        if (self.houses + numhouse) < 5:
-            self.houses = self.houses + numhouse
-        else:
-            self.houses = 0
-            self.hotel = 1
+    def set_price(self, price):
+        self.__price = price
 
-    def get_owner(self):
-        return self.owner
+    def set_rent(self, rent):
+        self.__rent = rent
+
+    def set_color(self, color):
+        self.__color = color
+
+    def set_position(self, position):
+        self.__position = position
+
+    def set_houses(self, houses):
+        self.__houses = houses
+
+    def set_owner(self, owner):
+        self.__owner = owner
 
     def get_name(self):
-        return self.name
-
-    def get_location(self):
-        return self.location
+        return self.__name
 
     def get_price(self):
-        return self.price
-
-    def set_owner(self, player):
-        self.owner = player
+        return self.__price
 
     def get_rent(self):
-        return self.rent
+        return self.__rent
+
+    def get_color(self):
+        return self.__color
+
+    def get_positon(self):
+        return self.__position
+
+    def get_houses(self):
+        return self.__houses
+
+    def get_owner(self):
+        return self.__owner
 
 
 

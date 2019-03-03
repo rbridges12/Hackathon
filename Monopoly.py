@@ -12,35 +12,63 @@ class Monopoly:
         self.__create_communitychest()
 
     def __create_properties(self):
-        self.properties = []
-        self.properties.append(Property.Property("Iowa City Lane", 500, "blue", 30, 0, 39))
-        self.properties.append(Property.Property("North Liberty Road", 450, "blue", 30, 0, 37))
-        self.properties.append(Property.Property("Coralville Court", 400, "green", 25, 0, 34))
-        self.properties.append(Property.Property("Cedar Rapids Boulevard", 380, "green", 25, 0, 32))
-        self.properties.append(Property.Property("Bettendorf Drive", 360, "green", 25, 0, 31))
-        self.properties.append(Property.Property("Misquaki Circle", 320, "yellow", 20, 0, 29))
-        self.properties.append(Property.Property("Decorah Highway 6", 300, "yellow", 20, 0, 27))
-        self.properties.append(Property.Property("Des Moines Avenue", 280, "yellow", 20, 0, 26))
-        self.properties.append(Property.Property("Waterloo Street", 275, "red", 15, 0, 24))
-        self.properties.append(Property.Property("Dubuque Freeway", 260, "red", 15, 0, 23))
-        self.properties.append(Property.Property("Cedar Falls Drive", 250, "red", 15, 0, 21))
-        self.properties.append(Property.Property("Sioux City Circle", 240, "orange", 10, 0, 19))
-        self.properties.append(Property.Property("Davenport Avenue", 220, "orange", 10, 0, 18))
-        self.properties.append(Property.Property("Ames Avenue", 200, "orange", 10, 0, 16))
-        self.properties.append(Property.Property("Council Bluffs Road", 180, "cyan", 7, 0, 14))
-        self.properties.append(Property.Property("Pella Parkway", 160, "cyan", 7, 0, 13))
-        self.properties.append(Property.Property("Postville Court", 150, "cyan", 7, 0, 11))
-        self.properties.append(Property.Property("Storm Lake Circle", 125, "purple", 5, 0, 9))
-        self.properties.append(Property.Property("Okoboji Place", 100, "purple", 5, 0, 8))
-        self.properties.append(Property.Property("Mason City Boulevard", 90, "purple", 5, 0, 6))
-        self.properties.append(Property.Property("Benton Drive", 75, "brown", 2, 0, 3))
-        self.properties.append(Property.Property("Riverside Street", 50, "brown", 2, 0, 1))
-        self.properties.append(Property.Property("MidAmerican Energy", 150, "white", 50, 0, 12))
-        self.properties.append(Property.Property("Mediacom", 150, "white", 50, 0, 28))
-        self.properties.append(Property.Property("Will's Treyways", 200, "black", 50, 0, 35))
-        self.properties.append(Property.Property("Ray Railways", 200, "black", 50, 0, 25))
-        self.properties.append(Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 15))
-        self.properties.append(Property.Property("Gavel's Gravel", 200, "black", 50, 0, 5))
+        # TODO change arguments to match new order
+        # TODO update positions to index from 0 instead of 1
+        self.custom_properties = [
+            Property.Property("Iowa City Lane", 500, "blue", 30, 0, 39),
+            Property.Property("North Liberty Road", 450, "blue", 30, 0, 37),
+            Property.Property("Coralville Court", 400, "green", 25, 0, 34),
+            Property.Property("Cedar Rapids Boulevard", 380, "green", 25, 0, 32),
+            Property.Property("Bettendorf Drive", 360, "green", 25, 0, 31),
+            Property.Property("Misquaki Circle", 320, "yellow", 20, 0, 29),
+            Property.Property("Decorah Highway 6", 300, "yellow", 20, 0, 27),
+            Property.Property("Des Moines Avenue", 280, "yellow", 20, 0, 26),
+            Property.Property("Waterloo Street", 275, "red", 15, 0, 24),
+            Property.Property("Dubuque Freeway", 260, "red", 15, 0, 23),
+            Property.Property("Cedar Falls Drive", 250, "red", 15, 0, 21),
+            Property.Property("Sioux City Circle", 240, "orange", 10, 0, 19),
+            Property.Property("Davenport Avenue", 220, "orange", 10, 0, 18),
+            Property.Property("Ames Avenue", 200, "orange", 10, 0, 16),
+            Property.Property("Council Bluffs Road", 180, "cyan", 7, 0, 14),
+            Property.Property("Pella Parkway", 160, "cyan", 7, 0, 13),
+            Property.Property("Postville Court", 150, "cyan", 7, 0, 11),
+            Property.Property("Storm Lake Circle", 125, "purple", 5, 0, 9),
+            Property.Property("Okoboji Place", 100, "purple", 5, 0, 8),
+            Property.Property("Mason City Boulevard", 90, "purple", 5, 0, 6),
+            Property.Property("Benton Drive", 75, "brown", 2, 0, 3),
+            Property.Property("Riverside Street", 50, "brown", 2, 0, 1),
+            Property.Property("MidAmerican Energy", 150, "white", 50, 0, 12),
+            Property.Property("Mediacom", 150, "white", 50, 0, 28),
+            Property.Property("Will's Treyways", 200, "black", 50, 0, 35),
+            Property.Property("Ray Railways", 200, "black", 50, 0, 25),
+            Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 15),
+            Property.Property("Gavel's Gravel", 200, "black", 50, 0, 5)
+        ]
+
+        self.original_properties = [
+            Property.Property("Mediterranean Avenue", 60, 2, "purple", 1),
+            Property.Property("Baltic Avenue", 60, 4, "purple", 3),
+            Property.Property("Oriental Avenue", 100, 6, "light blue", 6),
+            Property.Property("Vermont Avenue", 100, 6, "light blue", 8),
+            Property.Property("Connecticut Avenue", 120, 8, "light blue", 9),
+            Property.Property("St. Charles Place", 140, 10, "pink", 11),
+            Property.Property("States Avenue", 140, 10, "pink", 13),
+            Property.Property("Virginia Avenue", 160, 12, "pink", 14),
+            Property.Property("St. James Place", 180, 14, "orange", 16),
+            Property.Property("Tennessee Avenue", 180, 14, "orange", 18),
+            Property.Property("New York Avenue", 200, 16, "orange", 19),
+            Property.Property("Kentucky Avenue", 220, 18, "red", 21),
+            Property.Property("Indiana Avenue", 220, 18, "red", 23),
+            Property.Property("Illinois Avenue", 240, 20, "red", 24),
+            Property.Property("Atlantic Avenue", 260, 22, "yellow", 26),
+            Property.Property("Ventnor Avenue", 260, 22, "yellow", 27),
+            Property.Property("Marvin Gardens", 280, 24, "yellow", 29),
+            Property.Property("Pacific Avenue", 300, 26, "green", 31),
+            Property.Property("North Carolina Avenue", 300, 26, "green", 32),
+            Property.Property("Pennsylvania Avenue", 320, 28, "green", 34),
+            Property.Property("Park Place", 350, 35, "blue", 37),
+            Property.Property("Boardwalk", 400, 50, "blue", 39)
+        ]
 
     def __create_chance(self):
         self.chance = []
@@ -63,7 +91,7 @@ class Monopoly:
         self.communitychest.append(communitychest.CommunityChest(3,0, "Wake up early, go 3 spaces"))
 
     def get_properties(self):
-        return self.properties
+        return self.custom_properties
 
     def get_players(self):
         return self.players
@@ -103,7 +131,7 @@ class Monopoly:
         return random.randint(1, 6)
 
     def get_on_property(self, player_location):
-        for a_property in self.properties:
+        for a_property in self.custom_properties:
             if a_property.get_location() == player_location:
                 return a_property
         return 0
