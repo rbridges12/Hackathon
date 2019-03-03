@@ -50,6 +50,9 @@ class Property:
     def get_owner(self):
         return self.__owner
 
+    def get_type(self):
+        return "property"
+
 
 
 
