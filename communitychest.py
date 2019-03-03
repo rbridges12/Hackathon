@@ -15,5 +15,7 @@ class CommunityChest:
         self.__spaces_moved = spaces_moved
     def set_price(self,price):
         self.__price = price
+    def get_type(self):
+        return "Community Chest"
 
 
