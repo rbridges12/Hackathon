@@ -1,140 +1,164 @@
-import Property
-import Chance
-import communitychest
+from Property import *
+from Chance import *
+from communitychest import *
 import random
 
 
 class Monopoly:
-    def __init__(self, players):
-        self.__players = players
-        self.__create_properties()
-        self.__create_chance()
-        self.__create_communitychest()
+    def __init__(self, players, custom_properties = False):
+        self.players = players
+        self.using_custom_properties = custom_properties
+        self.num_bankrupt_players = 0
+        self.init_properties()
+        self.init_chance()
+        self.init_communitychest()
+        self.init_board()
 
 
-    def __create_properties(self):
-        # TODO change arguments to match new order
-        # TODO update positions to index from 0 instead of 1
+    def init_properties(self):
         self.custom_properties = [
-            Property.Property("Iowa City Lane", 500, "blue", 30, 0, 39),
-            Property.Property("North Liberty Road", 450, "blue", 30, 0, 37),
-            Property.Property("Coralville Court", 400, "green", 25, 0, 34),
-            Property.Property("Cedar Rapids Boulevard", 380, "green", 25, 0, 32),
-            Property.Property("Bettendorf Drive", 360, "green", 25, 0, 31),
-            Property.Property("Misquaki Circle", 320, "yellow", 20, 0, 29),
-            Property.Property("Decorah Highway 6", 300, "yellow", 20, 0, 27),
-            Property.Property("Des Moines Avenue", 280, "yellow", 20, 0, 26),
-            Property.Property("Waterloo Street", 275, "red", 15, 0, 24),
-            Property.Property("Dubuque Freeway", 260, "red", 15, 0, 23),
-            Property.Property("Cedar Falls Drive", 250, "red", 15, 0, 21),
-            Property.Property("Sioux City Circle", 240, "orange", 10, 0, 19),
-            Property.Property("Davenport Avenue", 220, "orange", 10, 0, 18),
-            Property.Property("Ames Avenue", 200, "orange", 10, 0, 16),
-            Property.Property("Council Bluffs Road", 180, "cyan", 7, 0, 14),
-            Property.Property("Pella Parkway", 160, "cyan", 7, 0, 13),
-            Property.Property("Postville Court", 150, "cyan", 7, 0, 11),
-            Property.Property("Storm Lake Circle", 125, "purple", 5, 0, 9),
-            Property.Property("Okoboji Place", 100, "purple", 5, 0, 8),
-            Property.Property("Mason City Boulevard", 90, "purple", 5, 0, 6),
-            Property.Property("Benton Drive", 75, "brown", 2, 0, 3),
-            Property.Property("Riverside Street", 50, "brown", 2, 0, 1),
-            Property.Property("MidAmerican Energy", 150, "white", 50, 0, 12),
-            Property.Property("Mediacom", 150, "white", 50, 0, 28),
-            Property.Property("Will's Treyways", 200, "black", 50, 0, 35),
-            Property.Property("Ray Railways", 200, "black", 50, 0, 25),
-            Property.Property("Bridge's Bridgeway", 200, "black", 50, 0, 15),
-            Property.Property("Gavel's Gravel", 200, "black", 50, 0, 5)
+            Property(name = "Iowa City Lane", price = 500, color = "blue", rent = 30, position = 39),
+            Property(name = "North Liberty Road", price = 450, color = "blue", rent = 30, position = 37),
+
+            Property(name = "Coralville Court", price = 400, color = "green", rent = 25, position = 34),
+            Property(name = "Cedar Rapids Boulevard", price = 380, color = "green", rent = 25, position = 32),
+            Property(name = "Bettendorf Drive", price = 360, color = "green", rent = 25, position = 31),
+
+            Property(name = "Misquaki Circle", price = 320, color = "yellow", rent = 20, position = 29),
+            Property(name = "Decorah Highway 6", price = 300, color = "yellow", rent = 20, position = 27),
+            Property(name = "Des Moines Avenue", price = 280, color = "yellow", rent = 20, position = 26),
+
+            Property(name = "Waterloo Street", price = 275, color = "red", rent = 15, position = 24),
+            Property(name = "Dubuque Freeway", price = 260, color = "red", rent = 15, position = 23),
+            Property(name = "Cedar Falls Drive", price = 250, color = "red", rent = 15, position = 21),
+
+            Property(name = "Sioux City Circle", price = 240, color = "orange", rent = 10, position = 19),
+            Property(name = "Davenport Avenue", price = 220, color = "orange", rent = 10, position = 18),
+            Property(name = "Ames Avenue", price = 200, color = "orange", rent = 10, position = 16),
+
+            Property(name = "Council Bluffs Road", price = 180, color = "cyan", rent = 7, position = 14),
+            Property(name = "Pella Parkway", price = 160, color = "cyan", rent = 7, position = 13),
+            Property(name = "Postville Court", price = 150, color = "cyan", rent = 7, position = 11),
+
+            Property(name = "Storm Lake Circle", price = 125, color = "purple", rent = 5, position = 9),
+            Property(name = "Okoboji Place", price = 100, color = "purple", rent = 5, position = 8),
+            Property(name = "Mason City Boulevard", price = 90, color = "purple", rent = 5, position = 6),
+
+            Property(name = "Benton Drive", price = 75, color = "brown", rent = 2, position = 3),
+            Property(name = "Riverside Street", price = 50, color = "brown", rent = 2, position = 1),
+
+            Property(name = "MidAmerican Energy", price = 150, color = "white", rent = 50, position = 12),
+            Property(name = "Mediacom", price = 150, color = "white", rent = 50, position = 28),
+
+            Property(name = "Will's Treyways", price = 200, color = "black", rent = 50, position = 35),
+            Property(name = "Ray Railways", price = 200, color = "black", rent = 50, position = 25),
+            Property(name = "Bridge's Bridgeway", price = 200, color = "black", rent = 50, position = 15),
+            Property(name = "Gnavel's Gravel", price = 200, color = "black", rent = 50, position = 5)
         ]
 
         self.original_properties = [
-            Property.Property("Mediterranean Avenue", 60, 2, "purple", 1),
-            Property.Property("Baltic Avenue", 60, 4, "purple", 3),
-            Property.Property("Oriental Avenue", 100, 6, "light blue", 6),
-            Property.Property("Vermont Avenue", 100, 6, "light blue", 8),
-            Property.Property("Connecticut Avenue", 120, 8, "light blue", 9),
-            Property.Property("St. Charles Place", 140, 10, "pink", 11),
-            Property.Property("States Avenue", 140, 10, "pink", 13),
-            Property.Property("Virginia Avenue", 160, 12, "pink", 14),
-            Property.Property("St. James Place", 180, 14, "orange", 16),
-            Property.Property("Tennessee Avenue", 180, 14, "orange", 18),
-            Property.Property("New York Avenue", 200, 16, "orange", 19),
-            Property.Property("Kentucky Avenue", 220, 18, "red", 21),
-            Property.Property("Indiana Avenue", 220, 18, "red", 23),
-            Property.Property("Illinois Avenue", 240, 20, "red", 24),
-            Property.Property("Atlantic Avenue", 260, 22, "yellow", 26),
-            Property.Property("Ventnor Avenue", 260, 22, "yellow", 27),
-            Property.Property("Marvin Gardens", 280, 24, "yellow", 29),
-            Property.Property("Pacific Avenue", 300, 26, "green", 31),
-            Property.Property("North Carolina Avenue", 300, 26, "green", 32),
-            Property.Property("Pennsylvania Avenue", 320, 28, "green", 34),
-            Property.Property("Park Place", 350, 35, "blue", 37),
-            Property.Property("Boardwalk", 400, 50, "blue", 39)
+            Property(name = "Mediterranean Avenue", price = 60, rent = 2, color = "purple", position = 1),
+            Property(name = "Baltic Avenue", price = 60, rent = 4, color = "purple", position = 3),
+
+            Property(name = "Oriental Avenue", price = 100, rent = 6, color = "light blue", position = 6),
+            Property(name = "Vermont Avenue", price = 100, rent = 6, color = "light blue", position = 8),
+            Property(name = "Connecticut Avenue", price = 120, rent = 8, color = "light blue", position = 9),
+
+            Property(name = "St. Charles Place", price = 140, rent = 10, color = "pink", position = 11),
+            Property(name = "States Avenue", price = 140, rent = 10, color = "pink", position = 13),
+            Property(name = "Virginia Avenue", price = 160, rent = 12, color = "pink", position = 14),
+
+            Property(name = "St. James Place", price = 180, rent = 14, color = "orange", position = 16),
+            Property(name = "Tennessee Avenue", price = 180, rent = 14, color = "orange", position = 18),
+            Property(name = "New York Avenue", price = 200, rent = 16, color = "orange", position = 19),
+
+            Property(name = "Kentucky Avenue", price = 220, rent = 18, color = "red", position = 21),
+            Property(name = "Indiana Avenue", price = 220, rent = 18, color = "red", position = 23),
+            Property(name = "Illinois Avenue", price = 240, rent = 20, color = "red", position = 24),
+
+            Property(name = "Atlantic Avenue", price = 260, rent = 22, color = "yellow", position = 26),
+            Property(name = "Ventnor Avenue", price = 260, rent = 22, color = "yellow", position = 27),
+            Property(name = "Marvin Gardens", price = 280, rent = 24, color = "yellow", position = 29),
+
+            Property(name = "Pacific Avenue", price = 300, rent = 26, color = "green", position = 31),
+            Property(name = "North Carolina Avenue", price = 300, rent = 26, color = "green", position = 32),
+            Property(name = "Pennsylvania Avenue", price = 320, rent = 28, color = "green", position = 34),
+
+            Property(name = "Park Place", price = 350, rent = 35, color = "blue", position = 37),
+            Property(name = "Boardwalk", price = 400, rent = 50, color = "blue", position = 39)
         ]
 
-    def __create_chance(self):
-        self.chance = []
-        self.chance.append(Chance.Chance(0, 50, "Win a beauty contest. Collect $50"))
-        self.chance.append(Chance.Chance(-2, 0, "Slip and fall. Go back 2 spaces"))
-        self.chance.append(Chance.Chance(0,-20,"Get a speeding ticket. Pay $20"))
-        self.chance.append(Chance.Chance(0,-10,"Lose a bet with the bank. Pay $10"))
-        self.chance.append(Chance.Chance(2,0,"Catch a free cab ride. Go forward 2 spaces"))
-        self.chance.append(Chance.Chance(0,-100,"Get audited by the IRS. Pay $100"))
-        self.chance.append(Chance.Chance(0,-40,"Pay Mr. Monopoly $40 for a new top hat"))
-        self.chance.append(Chance.Chance(-3,0,"Get caught up talking to a friend. Go back 3 spaces"))
-        self.chance.append(Chance.Chance(0,10,"Bank error in your favor. Collect $10"))
-        self.chance.append(Chance.Chance(1,0,"Get a new, faster car. Go forward 1 space"))
-        self.chance.append(Chance.Chance(-2,0,"Wake up late. Go back 2 spaces"))
-        self.chance.append(Chance.Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15"))
-    def __create_communitychest(self):
-        self.communitychest = []
-        self.communitychest.append(communitychest.CommunityChest(0,-40,"Pay the Doc $40"))
-        self.communitychest.append(communitychest.CommunityChest(0, 100, "Get $100 in Christmas Gifts"))
-        self.communitychest.append(communitychest.CommunityChest(3,0, "Wake up early, go 3 spaces"))
+    def init_chance(self):
+        self.chance = [
+            Chance(0, 50, "Win a beauty contest. Collect $50"),
+            Chance(-2, 0, "Slip and fall. Go back 2 spaces"),
+            Chance(0,-20,"Get a speeding ticket. Pay $20"),
+            Chance(0,-10,"Lose a bet with the bank. Pay $10"),
+            Chance(2,0,"Catch a free cab ride. Go forward 2 spaces"),
+            Chance(0,-100,"Get audited by the IRS. Pay $100"),
+            Chance(0,-40,"Pay Mr. Monopoly $40 for a new top hat"),
+            Chance(-3,0,"Get caught up talking to a friend. Go back 3 spaces"),
+            Chance(0,10,"Bank error in your favor. Collect $10"),
+            Chance(1,0,"Get a new, faster car. Go forward 1 space"),
+            Chance(-2,0,"Wake up late. Go back 2 spaces"),
+            Chance(0,15,"Win a bet with Mr. Monopoly. Collect $15")
+        ]
 
-    def get_properties(self):
-        return self.custom_properties
+    def init_communitychest(self):
+        self.communitychest = [
+            CommunityChest(0,-40,"Pay the Doc $40"),
+            CommunityChest(0, 100, "Get $100 in Christmas Gifts"),
+            CommunityChest(3,0, "Wake up early, go 3 spaces")
+        ]
 
-    def get_players(self):
-        return self.__players
+    def init_board(self):
+        self.board = []
+        properties = self.custom_properties if self.using_custom_properties else self.original_properties
+        for p in properties:
+            board[p.position] = p
+        for c in self.chance:
+            board[c.position] = c
+        for cc in self.communitychest:
+            board[cc.position] = cc
 
     def get_game_over(self):
-        not_bankrupt = 0
-        for player in self.__players:
-            if not player.get_is_bankrupt():
-                not_bankrupt += 1
-        if not_bankrupt <= 1:
-            return True
+        return self.num_bankrupt_players >= len(self.players) - 1
 
     def landed_on_property(self, player, a_property):
-        print(player.get_name(), " landed on ", a_property.get_name())
-        if a_property.get_owner() is None:
-            if player.get_money() >= a_property.get_price():
-                #if input("Do you want to buy " + a_property.get_name() + "? (y/n)") == "y":
-                    a_property.set_owner(player)
-                    player.subtract_money(a_property.get_price())
-                    print(player.get_name() + " bought " + a_property.get_name())
+        print("%s landed on %s" %(player.name, a_property.name))
+
+        # buy property
+        if a_property.owner is None:
+            if player.money >= a_property.price:
+                if input("Do you want to buy %s? (y/n) " % a_property.name).lower() == "y":
+                    a_property.owner = player
+                    player.money -= a_property.price
+                    print(player.name + "%s bought %s" + a_property.name)
             else:
-                print(player.get_name() + " can't buy " + a_property.get_name())
+                print("%s can't buy %s" %(player.name, a_property.name))
+
+        # pay rent
         else:
-            owner = a_property.get_owner()
-            player.subtract_money(a_property.get_rent())
-            owner.add_money(a_property.get_rent())
-            print(a_property.get_name(), "is owned by", owner.get_name())
-            print(player.get_name(), "paid", owner.get_name(), " $", a_property.get_rent(), "in rent")
+            owner = a_property.owner
+            player.money -= a_property.rent
+            owner.money += a_property.rent
+            print("%s is owned by %s" %(a_property.name, owner.name))
+            print("%s paid %s $%d in rent" % (player.name, owner.name, a_property.rent))
 
     def landed_on_chance(self, player, chance):
-        print(player.get_name(), "landed on chance:", chance.get_description())
+        print(player.name, "landed on chance:", chance.get_description())
         player.move_forward(chance.get_spaces_moved())
         player.add_money(chance.get_price_added())
 
     #def landed_on_communitychest(self):
 
-    def __get_dice_roll(self):
-        return random.randint(1, 6)
+    @staticmethod
+    def get_dice_roll():
+        return random.randint(1, 6) + random.randint(1, 6)
 
     def get_on_property(self, player_position):
         for a_property in self.original_properties:
-            if a_property.get_position() == player_position:
+            if a_property.position == player_position:
                 return a_property
         return None
 
@@ -153,29 +177,21 @@ class Monopoly:
                 return None
 
     def do_turn(self):
-        for player in self.__players:
-            if player.get_is_bankrupt():
-                continue
-            roll = self.__get_dice_roll()
-            player.move_forward(roll)
-            print(player.get_name(), " has $", player.get_money())
-            print(player.get_name(), " rolled a ", roll)
-            print(player.get_name(), "moved to tile ", player.get_position())
-            landed_property = self.get_on_property(player.get_position())
-            landed_chance = self.get_on_chance(player.get_position())
-            if landed_property is not None:
-                self.landed_on_property(player, landed_property)
-            elif landed_chance is not None:
-                self.landed_on_chance(player, landed_chance)
-            if player.get_money() <= 0 or player.get_money() > 10000:
-                player.set_is_bankrupt(True)
-                print(player.get_name(), "is bankrupt")
+        for player in self.players:
+            if not player.get_is_bankrupt():
+                roll = self.get_dice_roll()
+                player.move_forward(roll)
+                print(player.name, " has $", player.get_money())
+                print(player.name, " rolled a ", roll)
+                print(player.name, "moved to tile ", player.position)
+                landed_property = self.get_on_property(player.position)
+                landed_chance = self.get_on_chance(player.position)
+                if landed_property is not None:
+                    self.landed_on_property(player, landed_property)
+                elif landed_chance is not None:
+                    self.landed_on_chance(player, landed_chance)
+                if player.get_money() <= 0 or player.get_money() > 10000:
+                    player.set_is_bankrupt(True)
+                    print(player.name, "is bankrupt")
 
-                # self.__players.remove(player)
-
-
-
-
-
-
-
+                    # self.players.remove(player)
